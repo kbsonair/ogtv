@@ -6,64 +6,24 @@
 <title>오징어티비</title>
 <link rel="icon" href="logo.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.4.12/hls.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #0a0d0d;
-    --surface: #12151a;
-    --surface2: #1b1f23;
-    --border: #272b2f;
-    --accent: #ff2e63;
-    --squid-teal: #0a3d34;
-    --squid-pink: #ff2e63;
-    --squid-pink2: #d6006d;
-    --text: #eeeef2;
-    --text2: #80809a;
-    --text3: #3a3a50;
-    --live: #22c55e;
-    --sidebar: 320px;
-    --radius: 10px;
-  }
-
-  /* ── THEMES ── */
-  [data-theme="light"] {
-    --bg: #f4f4f6;
-    --surface: #ffffff;
-    --surface2: #ebebf0;
-    --border: #dddde5;
-    --text: #111118;
-    --text2: #666680;
-    --text3: #aaaabc;
-  }
-  [data-theme="warm"] {
-    --bg: #12100e;
-    --surface: #1a1714;
-    --surface2: #231f1b;
-    --border: #2e2a25;
-    --text: #f0ebe4;
-    --text2: #8c8070;
-    --text3: #4a4238;
-  }
-  [data-theme="midnight"] {
-    --bg: #080c14;
-    --surface: #0f1520;
-    --surface2: #162030;
-    --border: #1e2e40;
-    --text: #dde8f5;
-    --text2: #6080a0;
-    --text3: #2a4060;
-  }
-  [data-theme="slate"] {
-    --bg: #f0f2f5;
-    --surface: #ffffff;
-    --surface2: #e8eaee;
-    --border: #d0d4dc;
-    --text: #1a1d24;
-    --text2: #5a6070;
-    --text3: #a0a8b8;
-    --accent: #3b5bdb;
+    --bg: #050506;
+    --surface: #0e0e11;
+    --surface2: #18181c;
+    --surface3: #1f1f24;
+    --border: #26262c;
+    --accent: #c9006b;
+    --accent2: #8f0050;
+    --accent-glow: rgba(201, 0, 107, 0.35);
+    --text: #f2f2f5;
+    --text2: #8a8a95;
+    --text3: #45454f;
+    --live: #ff2f86;
+    --radius: 12px;
   }
 
   html, body {
@@ -72,239 +32,72 @@
     color: var(--text);
     font-family: 'Outfit', sans-serif;
     font-size: 14px;
-    overflow: hidden;
   }
+
+  body { min-height: 100vh; }
 
   /* ── LAYOUT ── */
   .app {
-    display: grid;
-    grid-template-rows: 48px 1fr;
-    grid-template-columns: var(--sidebar) 1fr;
-    height: 100vh;
-    grid-template-areas:
-      "header header"
-      "sidebar main";
-  }
-
-  /* ── HEADER ── */
-  header {
-    grid-area: header;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 0 20px;
-    background: linear-gradient(120deg, var(--squid-teal) 0%, #0d0f10 55%, #0d0f10 100%);
-    border-bottom: 2px solid var(--squid-pink);
-    box-shadow: 0 1px 14px rgba(255,46,99,0.18);
-    z-index: 100;
-  }
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 1px;
-    color: var(--text);
-    white-space: nowrap;
-  }
-  .logo img {
-    width: 26px;
-    height: 26px;
-    object-fit: contain;
-    border-radius: 6px;
-    background: #000;
-    padding: 2px;
-    box-shadow: 0 0 0 1.5px var(--squid-pink);
-  }
-  .logo-brand {
-    background: linear-gradient(90deg, #ffffff, var(--squid-pink) 90%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .logo-shapes {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-left: 2px;
-    color: var(--squid-pink);
-    opacity: 0.85;
-  }
-  .logo-shapes svg { display: block; }
-  .logo-dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--squid-pink);
-    box-shadow: 0 0 8px var(--squid-pink);
-    animation: blink 2s ease-in-out infinite;
-  }
-  @keyframes blink {
-    0%,100% { opacity:1; } 50% { opacity:0.4; }
-  }
-  .header-sep { flex: 1; }
-  .channel-count {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    color: var(--text3);
-    letter-spacing: 1px;
-  }
-  .search-wrap { position: relative; }
-  .search-wrap svg {
-    position: absolute; left: 10px; top: 50%;
-    transform: translateY(-50%);
-    color: var(--text3); pointer-events: none;
-  }
-  #search {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    color: var(--text);
-    font-family: 'Outfit', sans-serif;
-    font-size: 13px;
-    padding: 6px 14px 6px 32px;
-    width: 180px;
-    outline: none;
-    transition: border-color 0.2s, width 0.2s;
-  }
-  #search:focus { border-color: var(--accent); width: 220px; }
-  #search::placeholder { color: var(--text3); }
-
-  /* 테마 버튼 */
-  .theme-picker {
-    display: flex; gap: 5px; align-items: center;
-  }
-  .theme-dot {
-    width: 16px; height: 16px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: border-color 0.15s, transform 0.15s;
-    flex-shrink: 0;
-  }
-  .theme-dot:hover, .theme-dot.active { border-color: var(--text); transform: scale(1.15); }
-  .theme-dot[data-t="dark"]     { background: #0c0c0e; box-shadow: inset 0 0 0 1px #444; }
-  .theme-dot[data-t="light"]    { background: #f4f4f6; box-shadow: inset 0 0 0 1px #ccc; }
-  .theme-dot[data-t="warm"]     { background: #2a1f14; }
-  .theme-dot[data-t="midnight"] { background: #0a1428; }
-  .theme-dot[data-t="slate"]    { background: linear-gradient(135deg,#3b5bdb,#f0f2f5); }
-
-  /* ── SIDEBAR ── */
-  .sidebar {
-    grid-area: sidebar;
-    background: var(--surface);
-    border-right: 1px solid var(--border);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    min-height: 100vh;
   }
-  .categories {
-    display: flex;
-    gap: 4px;
-    padding: 10px 12px;
-    flex-wrap: wrap;
-    border-bottom: 1px solid var(--border);
-  }
-  .cat-btn {
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    color: var(--text2);
-    cursor: pointer;
-    font-family: 'Outfit', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    padding: 3px 10px;
-    transition: all 0.15s;
-    white-space: nowrap;
-  }
-  .cat-btn:hover { border-color: var(--accent); color: var(--text); }
-  .cat-btn.active {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-  }
-  .channel-list {
-    flex: 1; overflow-y: auto; padding: 4px 0;
-  }
-  .channel-list::-webkit-scrollbar { width: 3px; }
-  .channel-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-  .channel-item {
+  /* ── HEADER (로고만, 중앙 정렬) ── */
+  header {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 10px;
-    padding: 7px 14px;
-    cursor: pointer;
-    transition: background 0.1s;
+    padding: 18px 0;
+    background: #000;
+    border-bottom: 1px solid var(--border);
     position: relative;
   }
-  .channel-item:hover { background: var(--surface2); }
-  .channel-item.active { background: var(--surface2); }
-  .channel-item.active::before {
+  header::after {
     content: '';
     position: absolute;
-    left: 0; top: 20%; bottom: 20%;
-    width: 2px;
-    background: var(--accent);
-    border-radius: 2px;
+    left: 50%; bottom: -1px;
+    transform: translateX(-50%);
+    width: 220px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    box-shadow: 0 0 12px 1px var(--accent-glow);
   }
-  .ch-avatar {
-    width: 30px; height: 30px;
-    border-radius: 7px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'IBM Plex Mono', monospace;
-    font-weight: 500;
-    font-size: 9px;
-    color: var(--text2);
-    flex-shrink: 0;
-    letter-spacing: -0.5px;
-    overflow: hidden;
-  }
-  .channel-item.active .ch-avatar { border-color: var(--accent); color: var(--accent); }
-  .ch-info { flex: 1; min-width: 0; }
-  .ch-name {
-    font-size: 12.5px;
-    font-weight: 500;
-    color: var(--text);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .ch-tag { font-size: 10px; color: var(--text3); margin-top: 1px; }
-  .live-badge {
-    display: flex; align-items: center; gap: 4px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 8px; font-weight: 500;
-    color: var(--live); letter-spacing: 1px; flex-shrink: 0;
-  }
-  .live-dot {
-    width: 5px; height: 5px;
-    border-radius: 50%; background: var(--live);
-    animation: blink 1.5s infinite;
+  .logo-img {
+    height: 46px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px var(--accent-glow));
   }
 
   /* ── MAIN ── */
   .main {
-    grid-area: main;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    background: var(--bg);
   }
 
-  /* ── VIDEO AREA ── */
+  /* ── PLAYER SECTION ── */
+  .player-section {
+    background: #000;
+    padding: 22px 20px 0;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .player-container {
+    width: 100%;
+    max-width: 1120px;
+    padding-bottom: 22px;
+  }
   .video-wrap {
     position: relative;
     background: #000;
-    flex: 1;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius);
     overflow: hidden;
-    min-height: 0;
+    border: 1px solid var(--border);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.5), 0 10px 40px -10px var(--accent-glow);
   }
   .video-wrap video {
     position: absolute;
@@ -314,28 +107,22 @@
     object-fit: contain;
     background: #000;
   }
-
-  /* 전체화면 */
   .video-wrap:fullscreen,
   .video-wrap:-webkit-full-screen {
     width: 100vw; height: 100vh;
     max-height: none; aspect-ratio: unset;
     background: #000;
+    border-radius: 0;
   }
   .video-wrap:fullscreen video,
-  .video-wrap:-webkit-full-screen video {
-    object-fit: contain;
-  }
+  .video-wrap:-webkit-full-screen video { object-fit: contain; }
 
   /* ── CUSTOM CONTROLS ── */
   .player-controls {
     position: absolute;
     bottom: 0; left: 0; right: 0;
     padding: 64px 24px 16px;
-    background: linear-gradient(to top,
-      rgba(0,0,0,0.78) 0%,
-      rgba(0,0,0,0.18) 65%,
-      transparent 100%);
+    background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.2) 65%, transparent 100%);
     display: flex;
     align-items: center;
     opacity: 0;
@@ -343,16 +130,8 @@
     pointer-events: none;
   }
   .video-wrap:hover .player-controls,
-  .video-wrap.show-controls .player-controls {
-    opacity: 1;
-    pointer-events: all;
-  }
-  .ctrl-left, .ctrl-right {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-  }
+  .video-wrap.show-controls .player-controls { opacity: 1; pointer-events: all; }
+  .ctrl-left, .ctrl-right { flex: 1; display: flex; align-items: center; gap: 18px; }
   .ctrl-right { justify-content: flex-end; }
   .ctrl-btn {
     background: none; border: none;
@@ -384,16 +163,12 @@
   .vol-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 10px; height: 10px; border-radius: 50%;
-    background: #fff; cursor: pointer;
+    background: var(--accent); cursor: pointer;
     box-shadow: 0 0 4px rgba(0,0,0,0.5);
     transition: transform 0.1s;
   }
   .vol-slider:hover::-webkit-slider-thumb { transform: scale(1.3); }
-  .vol-pct {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 9px; color: rgba(255,255,255,0.4);
-    min-width: 28px;
-  }
+  .vol-pct { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.4); min-width: 28px; }
 
   /* ── OVERLAY ── */
   .video-overlay {
@@ -418,14 +193,12 @@
     animation: spin 0.8s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
 
   /* ── INFO BAR ── */
   .video-info {
     display: flex; align-items: center; gap: 10px;
-    padding: 0 16px;
-    height: 38px;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
+    padding: 10px 4px 0;
     flex-shrink: 0;
   }
   .vi-badge {
@@ -436,12 +209,9 @@
     font-size: 8px; font-weight: 500;
     color: #fff; letter-spacing: 1.2px; flex-shrink: 0;
   }
-  .vi-name { font-size: 13px; font-weight: 500; color: var(--text); }
+  .vi-name { font-size: 14px; font-weight: 600; color: var(--text); }
   .vi-sep { flex: 1; }
-  .vi-tag {
-    font-size: 10px; color: var(--text3);
-    font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.5px;
-  }
+  .vi-tag { font-size: 10px; color: var(--text3); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.5px; }
   .err-msg {
     display: none; align-items: center; gap: 5px;
     color: #ff6b6b; font-size: 11px;
@@ -452,118 +222,341 @@
   }
   .err-msg.show { display: flex; }
 
+  /* ── CHANNELS SECTION ── */
+  .channels-section {
+    flex: 1;
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 22px 20px 40px;
+  }
+
+  .channels-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .channel-count {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  .toolbar-sep { flex: 1; min-width: 8px; }
+  .search-wrap { position: relative; }
+  .search-wrap svg {
+    position: absolute; left: 10px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--text3); pointer-events: none;
+  }
+  #search {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    padding: 7px 14px 7px 32px;
+    width: 180px;
+    outline: none;
+    transition: border-color 0.2s, width 0.2s;
+  }
+  #search:focus { border-color: var(--accent); width: 220px; }
+  #search::placeholder { color: var(--text3); }
+
+  .view-toggle {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .view-btn {
+    background: var(--surface2);
+    border: none;
+    color: var(--text2);
+    cursor: pointer;
+    padding: 7px 11px;
+    display: flex; align-items: center;
+    transition: background 0.15s, color 0.15s;
+  }
+  .view-btn + .view-btn { border-left: 1px solid var(--border); }
+  .view-btn:hover { color: var(--text); }
+  .view-btn.active { background: var(--accent); color: #fff; }
+
+  .categories {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .cat-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--text2);
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    font-size: 11.5px;
+    font-weight: 500;
+    padding: 5px 13px;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .cat-btn:hover { border-color: var(--accent); color: var(--text); }
+  .cat-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* ── BOX (GRID) VIEW ── */
+  .channel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+  }
+  .channel-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 10px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.15s, transform 0.12s, background 0.15s;
+    position: relative;
+  }
+  .channel-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .channel-card.active {
+    border-color: var(--accent);
+    background: var(--surface3);
+    box-shadow: 0 0 0 1px var(--accent), 0 6px 18px -6px var(--accent-glow);
+  }
+  .card-avatar {
+    width: 42px; height: 42px;
+    border-radius: 9px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 11px;
+    color: var(--text2);
+    letter-spacing: -0.5px;
+  }
+  .channel-card.active .card-avatar { border-color: var(--accent); color: var(--accent); }
+  .card-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .card-tag { font-size: 9.5px; color: var(--text3); }
+  .card-live {
+    position: absolute;
+    top: 8px; right: 8px;
+    display: flex; align-items: center; gap: 3px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 7px; font-weight: 600;
+    color: var(--live); letter-spacing: 1px;
+  }
+  .card-live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--live); animation: blink 1.5s infinite; }
+
+  /* ── TABLE VIEW ── */
+  .channel-table-wrap {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  table.channel-table { width: 100%; border-collapse: collapse; }
+  .channel-table thead th {
+    text-align: left;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--text3);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    background: var(--surface2);
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .channel-table tbody tr {
+    cursor: pointer;
+    transition: background 0.1s;
+    border-bottom: 1px solid var(--border);
+  }
+  .channel-table tbody tr:last-child { border-bottom: none; }
+  .channel-table tbody tr:hover { background: var(--surface2); }
+  .channel-table tbody tr.active { background: var(--surface3); }
+  .channel-table tbody tr.active td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+  .channel-table td { padding: 9px 14px; font-size: 12.5px; color: var(--text); background: var(--surface); }
+  .channel-table tbody tr:hover td,
+  .channel-table tbody tr.active td { background: transparent; }
+  .td-idx { color: var(--text3); font-family: 'IBM Plex Mono', monospace; font-size: 11px; width: 44px; }
+  .td-tag { color: var(--text2); font-size: 11px; }
+  .td-live { width: 70px; }
+  .table-live {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px; font-weight: 600;
+    color: var(--live); letter-spacing: 1px;
+  }
+  .table-live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--live); animation: blink 1.5s infinite; }
+
+  .empty-state {
+    padding: 40px 16px;
+    text-align: center;
+    color: var(--text3);
+    font-size: 12.5px;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+
 </style>
 </head>
 <body>
 <div class="app">
 
-  <!-- HEADER -->
+  <!-- HEADER: 로고만 중앙 정렬 -->
   <header>
-    <div class="logo">
-      <img src="logo.png" alt="오징어티비">
-      <span class="logo-brand">오징어티비</span>
-      <div class="logo-shapes">
-        <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
-        <svg width="10" height="10" viewBox="0 0 10 10"><polygon points="5,1 9,8.5 1,8.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
-        <svg width="10" height="10" viewBox="0 0 10 10"><rect x="1.3" y="1.3" width="7.4" height="7.4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
-      </div>
-      <div class="logo-dot"></div>
-    </div>
-    <div class="header-sep"></div>
-    <span class="channel-count" id="ch-count">로딩중…</span>
-    <div class="search-wrap">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-      </svg>
-      <input id="search" type="text" placeholder="채널 검색…" autocomplete="off">
-    </div>
+    <img class="logo-img" src="logo.png" alt="오징어티비">
   </header>
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="categories" id="categories"></div>
-    <div class="channel-list" id="sidebar-list"></div>
-  </aside>
+  <div class="main">
 
-  <!-- MAIN -->
-  <main class="main">
-    <!-- VIDEO -->
-    <div class="video-wrap" id="video-wrap">
-      <video id="video" autoplay playsinline></video>
-      <!-- 커스텀 컨트롤 -->
-      <div class="player-controls" id="player-controls">
-        <!-- 왼쪽: 볼륨 -->
-        <div class="ctrl-left">
-          <div class="ctrl-vol">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-            </svg>
-            <input type="range" class="vol-slider" id="vol-slider" min="0" max="100" value="100">
-            <span class="vol-pct" id="vol-pct">100%</span>
+    <!-- PLAYER -->
+    <div class="player-section">
+      <div class="player-container">
+        <div class="video-wrap" id="video-wrap">
+          <video id="video" autoplay playsinline></video>
+          <div class="player-controls" id="player-controls">
+            <div class="ctrl-left">
+              <div class="ctrl-vol">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                </svg>
+                <input type="range" class="vol-slider" id="vol-slider" min="0" max="100" value="100">
+                <span class="vol-pct" id="vol-pct">100%</span>
+              </div>
+            </div>
+            <button class="ctrl-btn ctrl-play" id="btn-play" title="재생/정지 (Space)">
+              <svg id="icon-play" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                <polygon points="5 3 19 12 5 21"/>
+              </svg>
+              <svg id="icon-pause" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="display:none">
+                <rect x="6" y="4" width="4" height="16" rx="1"/>
+                <rect x="14" y="4" width="4" height="16" rx="1"/>
+              </svg>
+            </button>
+            <div class="ctrl-right">
+              <button class="ctrl-btn" id="btn-pip" title="PIP (P)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2"/>
+                  <rect x="12" y="11" width="8" height="5" rx="1" fill="currentColor" stroke="none"/>
+                </svg>
+              </button>
+              <button class="ctrl-btn" id="btn-fs" title="전체화면 (F)">
+                <svg id="icon-fs" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                  <polyline points="15 3 21 3 21 9"/>
+                  <polyline points="9 21 3 21 3 15"/>
+                  <line x1="21" y1="3" x2="14" y2="10"/>
+                  <line x1="3" y1="21" x2="10" y2="14"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="video-overlay" id="overlay">
+            <div class="overlay-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#44445a" stroke-width="1.5">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+            </div>
+            <span class="overlay-text">채널을 선택하세요</span>
           </div>
         </div>
-        <!-- 가운데: 재생/정지 -->
-        <button class="ctrl-btn ctrl-play" id="btn-play" title="재생/정지 (Space)">
-          <svg id="icon-play" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-            <polygon points="5 3 19 12 5 21"/>
+
+        <!-- INFO BAR -->
+        <div class="video-info">
+          <span class="vi-badge" id="live-badge" style="display:none">
+            <span class="live-dot" style="width:6px;height:6px;background:#fff;border-radius:50%;animation:blink 1.5s infinite"></span>
+            LIVE
+          </span>
+          <span class="vi-name" id="vi-name">채널을 선택해주세요</span>
+          <span class="vi-sep"></span>
+          <span class="vi-tag" id="vi-tag"></span>
+          <div class="err-msg" id="err-msg">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            스트림 연결 오류
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHANNELS -->
+    <div class="channels-section">
+      <div class="channels-toolbar">
+        <span class="channel-count" id="ch-count">로딩중…</span>
+        <div class="toolbar-sep"></div>
+        <div class="search-wrap">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
           </svg>
-          <svg id="icon-pause" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="display:none">
-            <rect x="6" y="4" width="4" height="16" rx="1"/>
-            <rect x="14" y="4" width="4" height="16" rx="1"/>
-          </svg>
-        </button>
-        <!-- 오른쪽: PIP + 전체화면 -->
-        <div class="ctrl-right">
-          <button class="ctrl-btn" id="btn-pip" title="PIP (P)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="3" width="20" height="14" rx="2"/>
-              <rect x="12" y="11" width="8" height="5" rx="1" fill="currentColor" stroke="none"/>
+          <input id="search" type="text" placeholder="채널 검색…" autocomplete="off">
+        </div>
+        <div class="view-toggle">
+          <button class="view-btn active" id="btn-view-box" title="박스형">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="8" height="8" rx="1.5"/>
+              <rect x="13" y="3" width="8" height="8" rx="1.5"/>
+              <rect x="3" y="13" width="8" height="8" rx="1.5"/>
+              <rect x="13" y="13" width="8" height="8" rx="1.5"/>
             </svg>
           </button>
-          <button class="ctrl-btn" id="btn-fs" title="전체화면 (F)">
-            <svg id="icon-fs" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-              <polyline points="15 3 21 3 21 9"/>
-              <polyline points="9 21 3 21 3 15"/>
-              <line x1="21" y1="3" x2="14" y2="10"/>
-              <line x1="3" y1="21" x2="10" y2="14"/>
+          <button class="view-btn" id="btn-view-table" title="표형">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
             </svg>
           </button>
         </div>
       </div>
-      <div class="video-overlay" id="overlay">
-        <div class="overlay-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#44445a" stroke-width="1.5">
-            <polygon points="5 3 19 12 5 21 5 3"/>
-          </svg>
-        </div>
-        <span class="overlay-text">채널을 선택하세요</span>
+
+      <div class="categories" id="categories"></div>
+
+      <div id="channel-grid" class="channel-grid"></div>
+
+      <div id="channel-table-wrap" class="channel-table-wrap" style="display:none">
+        <table class="channel-table">
+          <thead>
+            <tr>
+              <th class="td-idx">#</th>
+              <th>채널명</th>
+              <th class="td-tag">카테고리</th>
+              <th class="td-live">상태</th>
+            </tr>
+          </thead>
+          <tbody id="channel-table-body"></tbody>
+        </table>
       </div>
     </div>
 
-    <!-- INFO BAR -->
-    <div class="video-info">
-      <span class="vi-badge" id="live-badge" style="display:none">
-        <span class="live-dot" style="width:6px;height:6px;background:#fff;border-radius:50%;animation:pulse 1.5s infinite"></span>
-        LIVE
-      </span>
-      <span class="vi-name" id="vi-name">채널을 선택해주세요</span>
-      <span class="vi-sep"></span>
-      <span class="vi-tag" id="vi-tag"></span>
-      <div class="err-msg" id="err-msg">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-        스트림 연결 오류
-      </div>
-    </div>
-
-  </main>
+  </div>
 </div>
 
 <script>
-let CHANNELS = [];
-
 // ── CATEGORY CONFIG ──
 const CATS = [
   { label: '전체', fn: () => true },
@@ -600,10 +593,12 @@ function getTag(name) {
 }
 
 // ── STATE ──
+let CHANNELS = [];
 let activeCat = 0;
 let activeIdx = null;
 let currentHls = null;
 let filtered = [];
+let viewMode = 'box'; // 'box' | 'table'
 
 // ── DOM ──
 const video = document.getElementById('video');
@@ -612,9 +607,24 @@ const viName = document.getElementById('vi-name');
 const viTag = document.getElementById('vi-tag');
 const liveBadge = document.getElementById('live-badge');
 const errMsg = document.getElementById('err-msg');
-const sidebarList = document.getElementById('sidebar-list');
+const channelGrid = document.getElementById('channel-grid');
+const channelTableWrap = document.getElementById('channel-table-wrap');
+const channelTableBody = document.getElementById('channel-table-body');
 const searchEl = document.getElementById('search');
 const chCount = document.getElementById('ch-count');
+const btnViewBox = document.getElementById('btn-view-box');
+const btnViewTable = document.getElementById('btn-view-table');
+
+// ── VIEW TOGGLE ──
+function setViewMode(mode) {
+  viewMode = mode;
+  btnViewBox.classList.toggle('active', mode === 'box');
+  btnViewTable.classList.toggle('active', mode === 'table');
+  channelGrid.style.display = mode === 'box' ? 'grid' : 'none';
+  channelTableWrap.style.display = mode === 'table' ? 'block' : 'none';
+}
+btnViewBox.addEventListener('click', () => setViewMode('box'));
+btnViewTable.addEventListener('click', () => setViewMode('table'));
 
 // ── BUILD CATEGORIES ──
 const catWrap = document.getElementById('categories');
@@ -646,22 +656,44 @@ function render() {
   const count = filtered.length;
   chCount.textContent = count + ' 채널';
 
-  // Sidebar
-  sidebarList.innerHTML = '';
+  if (count === 0) {
+    channelGrid.innerHTML = '<div class="empty-state">일치하는 채널이 없습니다</div>';
+    channelTableBody.innerHTML = '<tr><td colspan="4" class="empty-state">일치하는 채널이 없습니다</td></tr>';
+    return;
+  }
+
+  // 박스형
+  channelGrid.innerHTML = '';
   filtered.forEach((ch) => {
     const globalIdx = CHANNELS.indexOf(ch);
-    const item = document.createElement('div');
-    item.className = 'channel-item' + (globalIdx === activeIdx ? ' active' : '');
-    item.innerHTML = `
-      <div class="ch-avatar">${abbrev(ch.name)}</div>
-      <div class="ch-info">
-        <div class="ch-name">${ch.name}</div>
-        <div class="ch-tag">${getTag(ch.name)}</div>
-      </div>
-      ${globalIdx === activeIdx ? '<div class="live-badge"><div class="live-dot"></div>LIVE</div>' : ''}
+    const isActive = globalIdx === activeIdx;
+    const card = document.createElement('div');
+    card.className = 'channel-card' + (isActive ? ' active' : '');
+    card.innerHTML = `
+      ${isActive ? '<div class="card-live"><div class="card-live-dot"></div>LIVE</div>' : ''}
+      <div class="card-avatar">${abbrev(ch.name)}</div>
+      <div class="card-name">${ch.name}</div>
+      <div class="card-tag">${getTag(ch.name)}</div>
     `;
-    item.onclick = () => play(globalIdx);
-    sidebarList.appendChild(item);
+    card.onclick = () => play(globalIdx);
+    channelGrid.appendChild(card);
+  });
+
+  // 표형
+  channelTableBody.innerHTML = '';
+  filtered.forEach((ch, i) => {
+    const globalIdx = CHANNELS.indexOf(ch);
+    const isActive = globalIdx === activeIdx;
+    const row = document.createElement('tr');
+    row.className = isActive ? 'active' : '';
+    row.innerHTML = `
+      <td class="td-idx">${i + 1}</td>
+      <td>${ch.name}</td>
+      <td class="td-tag">${getTag(ch.name)}</td>
+      <td class="td-live">${isActive ? '<span class="table-live"><span class="table-live-dot"></span>LIVE</span>' : ''}</td>
+    `;
+    row.onclick = () => play(globalIdx);
+    channelTableBody.appendChild(row);
   });
 }
 
@@ -734,11 +766,11 @@ function startBgReconnect(targetIdx) {
         overlay.classList.remove('hidden');
         overlay.innerHTML = `
           <div class="overlay-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e63946" stroke-width="1.5">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c9006b" stroke-width="1.5">
               <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
           </div>
-          <span class="overlay-text" style="color:#e63946">스트림을 불러올 수 없습니다</span>`;
+          <span class="overlay-text" style="color:#c9006b">스트림을 불러올 수 없습니다</span>`;
       }
       return;
     }
@@ -959,7 +991,7 @@ document.addEventListener('keydown', e => {
 });
 
 // ── INIT (channels.json 로드) ──
-sidebarList.innerHTML = '<div style="padding:16px;color:var(--text3);font-size:12px;text-align:center;">채널 목록 불러오는 중…</div>';
+channelGrid.innerHTML = '<div class="empty-state">채널 목록 불러오는 중…</div>';
 fetch('channels.json')
   .then(res => res.json())
   .then(data => {
@@ -969,7 +1001,7 @@ fetch('channels.json')
   })
   .catch(err => {
     console.error('channels.json 로드 실패:', err);
-    sidebarList.innerHTML = '<div style="padding:16px;color:var(--squid-pink);font-size:12px;text-align:center;">channels.json을 불러오지 못했습니다</div>';
+    channelGrid.innerHTML = '<div class="empty-state">channels.json을 불러오지 못했습니다</div>';
   });
 </script>
 </body>
